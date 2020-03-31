@@ -23,7 +23,9 @@ class CategoriaController {
     def crear() {
         try {
             BetterMap map = new BetterMap(request)
+            println("*******REQUEST********")
             println(map)
+            println("*******PARAMS********")
             Categoria categoria = categoriaService.create(map)
             respond(categoria)
         }catch (ObjectException e) {

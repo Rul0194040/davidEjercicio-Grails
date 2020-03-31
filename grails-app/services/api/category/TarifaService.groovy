@@ -12,8 +12,6 @@ class TarifaService {
 
     Tarifa build(BetterMap map, Tarifa tarifa) throws Exception {
         tarifa.nombre = map.optString('nombre', tarifa.nombre)
-        tarifa.precio = map.optBoolean('precio', tarifa.precio)
-
 
         return tarifa
     }

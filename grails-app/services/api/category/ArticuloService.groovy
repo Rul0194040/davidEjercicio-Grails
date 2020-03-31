@@ -6,8 +6,9 @@ import visorus.bss.*
 @Transactional
 class ArticuloService {
 
-
-
+    CategoriaService categoriaService
+    PrecioService precioService
+    TarifaService tarifaService
 
     Articulo get(long id) throws Exception {
         Articulo articulo = Articulo.get(id)
@@ -75,6 +76,24 @@ class ArticuloService {
 
 
         return  articulo
+    }
+
+    Articulo agendar(BetterMap map) throws Exception {
+        Articulo articulo = new Articulo()
+        articulo = create(map)
+        Categoria categoria = new Categoria()
+        categoria = CategoriaService.create(map)
+        Precio precio = new Precio()
+        precio = precioService.create(map)
+        Tarifa tarifa = new Tarifa()
+        tarifa = tarifaService.create(map)
+
+        articulo.categoria = categoria
+        tarifa.precio = precio
+        articulo.tarifa = tarifa
+        
+
+        return articulo
     }
 
     List<Articulo> list(BetterMap params) throws Exception {

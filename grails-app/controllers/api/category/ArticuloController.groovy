@@ -3,6 +3,7 @@ package api.category
 
 import grails.rest.*
 import grails.converters.*
+import javafx.scene.chart.ScatterChart
 import org.springframework.http.HttpStatus
 import visorus.bss.BetterMap
 import visorus.bss.ExceptionStatus
@@ -25,7 +26,7 @@ class ArticuloController {
             e.printStackTrace()
             respond(status: HttpStatus.INTERNAL_SERVER_ERROR, [error: e.getMessage()])
         }
-    }
+    } //lista todos los articulos
     def crear() {
         try {
             BetterMap map = new BetterMap(request)
@@ -42,11 +43,13 @@ class ArticuloController {
             )
         }
 
-    }
+    } // crea un articulo
     def leer(long id) {
         try {
             BetterMap map = new BetterMap(params)
+            println("!!!")
             println(map)
+            println("!!!")
             respond(
                     status: HttpStatus.OK,
                     articuloService.get(id)
@@ -55,7 +58,7 @@ class ArticuloController {
             e.printStackTrace()
             respond(status: HttpStatus.INTERNAL_SERVER_ERROR, [error: e.getMessage()])
         }
-    }
+    } // lee el articulo del id proporcionado
     def actualizar() {
         try {
             BetterMap map = new BetterMap(request)
@@ -73,7 +76,7 @@ class ArticuloController {
             e.printStackTrace()
             respond(status: HttpStatus.INTERNAL_SERVER_ERROR, [error: e.getMessage()])
         }
-    }
+    } // actualiza el articulo del id proporcionado
     def borrar(long id) {
         try {
             Articulo articulo = articuloService.delete(id)
@@ -86,6 +89,18 @@ class ArticuloController {
             e.printStackTrace()
             respond(status: HttpStatus.INTERNAL_SERVER_ERROR, [error: e.getMessage()])
 
+        }
+    } // borra el articulo del id proporcionado
+
+    def booking() {
+        try {
+            BetterMap map = new BetterMap(request)
+            println(map)
+            Articulo articulo = articuloService.booking(map)
+            respond(articulo)
+        }catch (Exception e) {
+            e.printStackTrace()
+            respond(status: HttpStatus.INTERNAL_SERVER_ERROR, [error: e.getMessage()])
         }
     }
 }

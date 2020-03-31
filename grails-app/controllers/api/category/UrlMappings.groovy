@@ -10,6 +10,7 @@ class UrlMappings {
         put "/$controller/$id(.$format)?"(action:"actualizar")
         delete "/$controller/$id(.$format)?"(action:"borrar")
 
+        post "/$controller/$tarifa(.$format)?"(action:"agendar")
 
         "/"(controller: 'application', action:'index')
         "500"(view: '/error')
