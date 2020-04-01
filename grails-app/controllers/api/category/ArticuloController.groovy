@@ -96,11 +96,10 @@ class ArticuloController {
         try {
             BetterMap map = new BetterMap(request)
             println(map)
-            Articulo articulo = articuloService.booking(map)
+            Articulo articulo = articuloService.agendar(map)
             respond(articulo)
-        }catch (Exception e) {
-            e.printStackTrace()
-            respond(status: HttpStatus.INTERNAL_SERVER_ERROR, [error: e.getMessage()])
+        }catch (ObjectException e) {
+            respond(status: HttpStatus.BAD_REQUEST, e.responseObject)
         }
     }
 }

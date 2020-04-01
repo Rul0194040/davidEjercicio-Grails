@@ -12,6 +12,7 @@ class TarifaService {
 
     Tarifa build(BetterMap map, Tarifa tarifa) throws Exception {
         tarifa.nombre = map.optString('nombre', tarifa.nombre)
+        tarifa.precio = map.optObject('precio', tarifa.precio)
 
         return tarifa
     }
@@ -41,7 +42,7 @@ class TarifaService {
     Tarifa create(BetterMap map) throws Exception {
         Tarifa tarifa = new Tarifa()
         build(map, tarifa)
-        validate(tarifa)
+       // validate(tarifa)
         save(tarifa)
     }
     Tarifa get(long id) throws Exception {

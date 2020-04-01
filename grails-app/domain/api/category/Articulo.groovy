@@ -5,7 +5,8 @@ class Articulo {
     Categoria categoria
     String nombre
     Date fechaAlta
-    Boolean activo
+    Boolean activo = true
+    String clave
     Tarifa tarifa
 
     static constraints = {
@@ -23,6 +24,10 @@ class Articulo {
             nullable: false
         )
         activo(
+            blank: false,
+            nullable: false
+        )
+        clave(
             blank: false,
             nullable: false
         )

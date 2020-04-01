@@ -43,7 +43,7 @@ class PrecioService {
     Precio create(BetterMap map) throws Exception {
         Precio precio = new Precio()
         build(map, precio)
-        validate(precio)
+      //  validate(precio)
         save(precio)
     }
     Precio get(long id) throws Exception {

@@ -10,8 +10,6 @@ class CategoriaService {
     Categoria build(BetterMap map, Categoria categoria) throws Exception {
         categoria.descripcion = map.optString('descripcion', categoria.descripcion)
         categoria.activo = map.optBoolean('activo', categoria.activo)
-        categoria.clave = map.optString('clave', categoria.clave)
-
 
         return categoria
     }
@@ -41,7 +39,7 @@ class CategoriaService {
     Categoria create(BetterMap map) throws Exception {
         Categoria categoria = new Categoria()
         build(map, categoria)
-        validate(categoria)
+       // validate(categoria)
         save(categoria)
     }
     Categoria get(long id) throws Exception {
