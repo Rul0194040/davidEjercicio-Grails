@@ -74,23 +74,19 @@ class ArticuloService {
         articulo.fechaAlta = map.optDate('fechaAlta', articulo.fechaAlta)
         articulo.nombre = map.optString('nombre', articulo.nombre)
         articulo.activo = map.optBoolean('activo', articulo.activo)
-        articulo.categoria = map.optObject('categoria', articulo.categoria)
         articulo.clave = map.optString('clave', articulo.clave)
-        articulo.tarifa = map.optObject('tarifa', articulo.tarifa)
+       // articulo.categoria = map.optObject('categoria')
+        //articulo.tarifa = map.optObject('tarifa')
 
         return  articulo
     }
 
     Articulo agendar(BetterMap map) throws Exception {
-//        Articulo articulo = new Articulo()
-//        Categoria categoria = new Categoria()
-//        Tarifa tarifa = new Tarifa()
-//        Precio precio = new Precio()
-
+        Categoria categoria = categoriaService.create(map.optObject('categoria'))
+        Tarifa tarifa = tarifaService.create(map.optObject('tarifa'))
+        Precio precio = precioService.create(map.optObject('precio'))
         Articulo articulo = create(map)
-        Categoria categoria = categoriaService.create(map)
-        Precio precio = precioService.create(map)
-        Tarifa tarifa = tarifaService.create(map)
+
 
         articulo.categoria = categoria
         tarifa.precio = precio

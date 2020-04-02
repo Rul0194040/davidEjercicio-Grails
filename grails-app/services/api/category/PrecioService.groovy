@@ -12,7 +12,7 @@ class PrecioService {
 
    Precio build(BetterMap map,Precio precio) throws Exception {
         precio.numero = map.optString('numero', precio.numero)
-        precio.precio = map.optBoolean('precio', precio.precio)
+        precio.precio = map.optFloat('precio', precio.precio)
 
 
         return precio

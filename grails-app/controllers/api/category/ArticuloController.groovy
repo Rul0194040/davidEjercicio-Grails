@@ -95,7 +95,6 @@ class ArticuloController {
     def booking() {
         try {
             BetterMap map = new BetterMap(request)
-            println(map)
             Articulo articulo = articuloService.agendar(map)
             respond(articulo)
         }catch (ObjectException e) {
