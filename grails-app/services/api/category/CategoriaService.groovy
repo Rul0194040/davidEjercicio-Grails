@@ -73,6 +73,15 @@ class CategoriaService {
         save(categoria)
     }
 
+    Categoria saveAnidado(BetterMap map, Articulo articulo) {
+        Categoria categoria = new  Categoria()
+        this.build(map, categoria)
+        articulo.categoria = categoria
+        this.save(categoria)
+
+        return  categoria
+    }
+
     List<Categoria> list(BetterMap params) throws Exception {
 
         Categoria categoria = Categoria.list(params)

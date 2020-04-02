@@ -10,6 +10,7 @@ import visorus.bss.ObjectException
 @Transactional
 class PrecioService {
 
+
    Precio build(BetterMap map,Precio precio) throws Exception {
         precio.numero = map.optInt('numero', precio.numero)
         precio.precio = map.optFloat('precio', precio.precio)
@@ -17,12 +18,22 @@ class PrecioService {
 
         return precio
     }
+
+    Precio saveAnidado(BetterMap map, Tarifa tarifa){
+        Precio precio = new  Precio()
+        this.build(map, precio)
+        tarifa.precio = precio
+        this.save(precio)
+
+        return  precio
+    }
+
     void validate(Precio precio) throws ExceptionStatus {
         Precio busqueda = Precio.find('from Precio where activo = false and clave = ?0', [precio.clave])
         if (busqueda != null) {
             String message = Message.getMensaje([
                     codigo    : 'default.not.unique.inactive.message',
-                    parametros: ['clave', Message.getMensaje('precio.label', 'Articulo'), busqueda.clave],
+                    parametros: ['clave', Message.getMensaje('precio.label', 'Precio'), busqueda.clave],
             ])
             throw new ObjectException(message, 'default.not.unique.inactive.message', HttpStatus.BAD_REQUEST, [id: busqueda.id, url: 'precio'])
         }
