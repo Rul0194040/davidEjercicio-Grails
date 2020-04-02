@@ -73,7 +73,6 @@ class ArticuloService {
         return  articulo
     }
 
-<<<<<<< HEAD
     Articulo create(BetterMap map) throws Exception {
         Articulo articulo = new Articulo()
         build(map, articulo)
@@ -81,21 +80,7 @@ class ArticuloService {
         Tarifa tarifa = tarifaService.create(map.optObject('tarifa'))
         articulo.categoria = categoria
         articulo.tarifa = tarifa
-=======
-    Articulo saveAnidado(BetterMap map){
-        Articulo articulo = new  Articulo()
-        this.build(map, articulo)
-        this.save(articulo)
 
-        return  articulo
-    }
-
-    Articulo agendar(BetterMap map) throws Exception {
-        Articulo articulo = this.saveAnidado(map)
-        Categoria categoria = categoriaService.saveAnidado(map.optObject('categoria'),articulo)
-        Tarifa tarifa = tarifaService.saveAnidado(map.optObject('tarifa'),articulo)
-        
->>>>>>> 0ac4411fcd11adf5d0dd7031567d31dcff64829c
 
         validate(articulo)
         save(articulo)

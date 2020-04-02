@@ -14,24 +14,13 @@ class TarifaService {
 
     Tarifa build(BetterMap map, Tarifa tarifa) throws Exception {
         tarifa.nombre = map.optString('nombre', tarifa.nombre)
-<<<<<<< HEAD
         Precio precio = precioService.create(map.optObject('precio'))
         tarifa.precio = precio
-=======
->>>>>>> 0ac4411fcd11adf5d0dd7031567d31dcff64829c
+
 
         return tarifa
     }
 
-    Tarifa saveAnidado(BetterMap map, Articulo articulo){
-        Tarifa tarifa = new  Tarifa()
-        this.build(map, tarifa)
-        articulo.tarifa = tarifa
-        tarifa.precio = precioService.saveAnidado(map, tarifa)
-        this.save(tarifa)
-
-        return  tarifa
-    }
 
     void validate(Tarifa tarifa) throws ExceptionStatus {
         Tarifa busqueda = Tarifa.find('from Tarifa where activo = false and clave = ?0', [tarifa.clave])

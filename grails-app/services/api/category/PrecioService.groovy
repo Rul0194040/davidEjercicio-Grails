@@ -19,14 +19,6 @@ class PrecioService {
         return precio
     }
 
-    Precio saveAnidado(BetterMap map, Tarifa tarifa){
-        Precio precio = new  Precio()
-        this.build(map, precio)
-        tarifa.precio = precio
-        this.save(precio)
-
-        return  precio
-    }
 
     void validate(Precio precio) throws ExceptionStatus {
         Precio busqueda = Precio.find('from Precio where activo = false and clave = ?0', [precio.clave])
