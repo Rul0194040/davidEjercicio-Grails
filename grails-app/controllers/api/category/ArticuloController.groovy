@@ -67,7 +67,7 @@ class ArticuloController {
             Map result = [
                     message: Message.getMensaje(codigo: 'default.updated.message',
                             parametros: [Message.getMensaje('articulo.label', 'api.category.Articulo'), articulo.id]),
-                    data: articulo.Obtener()
+                    data: articulo.ObtenerArticulo()
             ]
             respond(status: HttpStatus.OK, result)
         } catch (ObjectException e) {
@@ -95,8 +95,8 @@ class ArticuloController {
     def booking() {
         try {
             BetterMap map = new BetterMap(request)
-            Articulo articulo = articuloService.agendar(map)
-            respond(articulo)
+            Articulo articulo = articuloService.create(map)
+            respond(articulo.ObtenerArticulo())
         }catch (ObjectException e) {
             respond(status: HttpStatus.BAD_REQUEST, e.responseObject)
         }

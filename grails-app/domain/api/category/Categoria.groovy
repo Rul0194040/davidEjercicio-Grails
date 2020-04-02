@@ -23,9 +23,7 @@ class Categoria {
     Map Obtener() {[
             id           : id,
             descripcion  : descripcion,
-            categoria    : categoria,
             activo       : activo,
-            clave        : clave
     ]}
 
 }

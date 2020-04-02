@@ -31,7 +31,7 @@ class PrecioController {
             BetterMap map = new BetterMap(request)
             println(map)
             Precio Precio = precioService.create(map)
-            respond(Precio)
+            respond(Precio.ObtenerPrecio())
         }catch (ObjectException e) {
             respond(status: e.status, e.responseObject)
         } catch (Exception e) {

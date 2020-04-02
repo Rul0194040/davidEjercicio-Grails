@@ -10,9 +10,12 @@ import visorus.bss.ObjectException
 @Transactional
 class TarifaService {
 
+    PrecioService precioService
+
     Tarifa build(BetterMap map, Tarifa tarifa) throws Exception {
         tarifa.nombre = map.optString('nombre', tarifa.nombre)
-        tarifa.precio = map.optObject('precio', tarifa.precio)
+        Precio precio = precioService.create(map.optObject('precio'))
+        tarifa.precio = precio
 
         return tarifa
     }
@@ -42,7 +45,7 @@ class TarifaService {
     Tarifa create(BetterMap map) throws Exception {
         Tarifa tarifa = new Tarifa()
         build(map, tarifa)
-       // validate(tarifa)
+
         save(tarifa)
     }
     Tarifa get(long id) throws Exception {

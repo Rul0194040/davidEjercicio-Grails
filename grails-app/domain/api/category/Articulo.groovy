@@ -41,10 +41,10 @@ class Articulo {
     Map ObtenerArticulo() {[
         id         : id,
         nombre     : nombre,
-        tarifa     : tarifa,
-        categoria  : categoria,
         activo     : activo,
-        fechaAlta  : fechaAlta
+        fechaAlta  : fechaAlta,
+        tarifa     : tarifa.ObtenerTarifa(),
+        categoria  : categoria.Obtener(),
     ]}
 
 

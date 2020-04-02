@@ -11,7 +11,7 @@ import visorus.bss.ObjectException
 class PrecioService {
 
    Precio build(BetterMap map,Precio precio) throws Exception {
-        precio.numero = map.optString('numero', precio.numero)
+        precio.numero = map.optInt('numero', precio.numero)
         precio.precio = map.optFloat('precio', precio.precio)
 
 
@@ -43,7 +43,6 @@ class PrecioService {
     Precio create(BetterMap map) throws Exception {
         Precio precio = new Precio()
         build(map, precio)
-      //  validate(precio)
         save(precio)
     }
     Precio get(long id) throws Exception {

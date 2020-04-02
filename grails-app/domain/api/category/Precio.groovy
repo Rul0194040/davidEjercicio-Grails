@@ -2,8 +2,8 @@ package api.category
 
 class Precio {
 
-    Integer numero;
-    Float precio;
+    Integer numero = 1
+    Float precio = 1000
 
     static constraints = {
 
@@ -18,6 +18,6 @@ class Precio {
     Map ObtenerPrecio() {[
             id          : id,
             numero      : numero,
-            precio      : precio
+            precio      : precio,
     ]}
 }

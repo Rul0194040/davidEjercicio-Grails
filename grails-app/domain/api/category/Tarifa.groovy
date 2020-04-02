@@ -17,9 +17,9 @@ class Tarifa {
     }
 
     Map ObtenerTarifa() {[
-            id           : id,
+            id      : id,
             nombre  : nombre,
-            precio    : precio
+            precio  : precio.ObtenerPrecio(),
 
     ]}
 }

@@ -8,7 +8,6 @@ import visorus.bss.*
 class ArticuloService {
 
     CategoriaService categoriaService
-    PrecioService precioService
     TarifaService tarifaService
 
     Articulo get(long id) throws Exception {
@@ -21,12 +20,6 @@ class ArticuloService {
                     )
             )
         return articulo
-    }
-    Articulo create(BetterMap map) throws Exception {
-        Articulo articulo = new Articulo()
-        build(map, articulo)
-        validate(articulo)
-        save(articulo)
     }
     Articulo update(BetterMap map) throws Exception {
         Articulo articulo = get(map.optLong("id", -1))
@@ -81,19 +74,16 @@ class ArticuloService {
         return  articulo
     }
 
-    Articulo agendar(BetterMap map) throws Exception {
+    Articulo create(BetterMap map) throws Exception {
+        Articulo articulo = new Articulo()
+        build(map, articulo)
         Categoria categoria = categoriaService.create(map.optObject('categoria'))
         Tarifa tarifa = tarifaService.create(map.optObject('tarifa'))
-        Precio precio = precioService.create(map.optObject('precio'))
-        Articulo articulo = create(map)
-
-
         articulo.categoria = categoria
-        tarifa.precio = precio
         articulo.tarifa = tarifa
-        
 
-        return articulo
+        validate(articulo)
+        save(articulo)
     }
 
     List<Articulo> list(BetterMap params) throws Exception {
