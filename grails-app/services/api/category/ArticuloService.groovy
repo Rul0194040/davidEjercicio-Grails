@@ -21,20 +21,13 @@ class ArticuloService {
             )
         return articulo
     }
-    Articulo update(BetterMap map) throws Exception {
-        Articulo articulo = get(map.optLong("id", -1))
 
-        if (map.optLong("version", -1) > -1) {
-            if (articulo.version > (map.getLong("version"))) {
-                throw new ObjectException(Message.getMensaje([
-                        codigo    : "default.optimistic.locking.failure",
-                        parametros: [Message.getMensaje('articulo.label', 'Articulo')]
-                ]), articulo, true)
-            }
-        }
+    Articulo update(BetterMap map,long id) throws Exception {
+        Articulo articulo = this.get(id)
         build(map, articulo)
         save(articulo)
     }
+
     Articulo delete(long id) throws Exception {
         Articulo articulo = get(id)
         articulo.activo = false
@@ -68,6 +61,11 @@ class ArticuloService {
         articulo.nombre = map.optString('nombre', articulo.nombre)
         articulo.activo = map.optBoolean('activo', articulo.activo)
         articulo.clave = map.optString('clave', articulo.clave)
+        Categoria categoria = categoriaService.create(map.optObject('categoria'))
+        Tarifa tarifa = tarifaService.create(map.optObject('tarifa'))
+        articulo.categoria = categoria
+        articulo.tarifa = tarifa
+
 
 
         return  articulo
@@ -76,12 +74,6 @@ class ArticuloService {
     Articulo create(BetterMap map) throws Exception {
         Articulo articulo = new Articulo()
         build(map, articulo)
-        Categoria categoria = categoriaService.create(map.optObject('categoria'))
-        Tarifa tarifa = tarifaService.create(map.optObject('tarifa'))
-        articulo.categoria = categoria
-        articulo.tarifa = tarifa
-
-
         validate(articulo)
         save(articulo)
     }

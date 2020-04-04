@@ -38,9 +38,12 @@ class CategoriaService {
 
     Categoria create(BetterMap map) throws Exception {
         Categoria categoria = new Categoria()
-        build(map, categoria)
-       // validate(categoria)
-        save(categoria)
+        if (map["id"] != null) {
+          this.update(map)
+        }else{
+            build(map, categoria)
+            save(categoria)
+        }
     }
     Categoria get(long id) throws Exception {
         Categoria categoria = Categoria.get(id)
@@ -53,20 +56,11 @@ class CategoriaService {
             )
         return categoria
     }
-    Categoria update(BetterMap map) throws Exception {
-        Categoria categoria = get(map.optLong("id", -1))//porque menos 1 ?
-
-        if (map.optLong("version", -1) > -1) {//Que es version?
-            if (categoria.version > (map.getLong("version"))) {
-                throw new ObjectException(Message.getMensaje([
-                        codigo    : "default.optimistic.locking.failure",
-                        parametros: [Message.getMensaje('categoria.label', 'Categoria')]
-                ]), categoria, true)
-            }
-        }
+    Categoria update(BetterMap map, long id) throws Exception {
+        Categoria categoria = this.get(id)
         build(map, categoria)
         save(categoria)
-    }// DOS DUDAS !!
+    }
     Categoria delete(long id) throws Exception {
         Categoria categoria = get(id)
         categoria.activo = false

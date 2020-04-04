@@ -47,9 +47,12 @@ class TarifaService {
 
     Tarifa create(BetterMap map) throws Exception {
         Tarifa tarifa = new Tarifa()
-        build(map, tarifa)
-
-        save(tarifa)
+        if (map["id"] != null) {
+            this.update(map)
+        }else{
+            build(map, tarifa)
+            save(tarifa)
+        }
     }
     Tarifa get(long id) throws Exception {
         Tarifa tarifa = Tarifa.get(id)
@@ -62,20 +65,11 @@ class TarifaService {
             )
         return tarifa
     }
-    Tarifa update(BetterMap map) throws Exception {
-        Tarifa tarifa = get(map.optLong("id", -1))//porque menos 1 ?
-
-        if (map.optLong("version", -1) > -1) {//Que es version?
-            if (tarifa.version > (map.getLong("version"))) {
-                throw new ObjectException(Message.getMensaje([
-                        codigo    : "default.optimistic.locking.failure",
-                        parametros: [Message.getMensaje('tarifa.label', 'Tarifa')]
-                ]), tarifa, true)
-            }
-        }
+    Tarifa update(BetterMap map, long id) throws Exception {
+        Tarifa tarifa = get(id)
         build(map, tarifa)
         save(tarifa)
-    }// DOS DUDAS !!
+    }
     Tarifa delete(long id) throws Exception {
         Tarifa tarifa = get(id)
         tarifa.activo = false

@@ -32,7 +32,7 @@ class ArticuloController {
             BetterMap map = new BetterMap(request)
             println(map)
             Articulo articulo = articuloService.create(map)
-            respond(articulo)
+            respond(articulo.ObtenerArticulo())
         }catch (ObjectException e) {
             respond(status: e.status, e.responseObject)
         } catch (Exception e) {
@@ -47,9 +47,6 @@ class ArticuloController {
     def leer(long id) {
         try {
             BetterMap map = new BetterMap(params)
-            println("!!!")
-            println(map)
-            println("!!!")
             respond(
                     status: HttpStatus.OK,
                     articuloService.get(id)
@@ -59,11 +56,10 @@ class ArticuloController {
             respond(status: HttpStatus.INTERNAL_SERVER_ERROR, [error: e.getMessage()])
         }
     } // lee el articulo del id proporcionado
-    def actualizar() {
+    def actualizar(long id) {
         try {
             BetterMap map = new BetterMap(request)
-            Articulo articulo = articuloService.update(map)
-
+            Articulo articulo = articuloService.update(map, id)
             Map result = [
                     message: Message.getMensaje(codigo: 'default.updated.message',
                             parametros: [Message.getMensaje('articulo.label', 'api.category.Articulo'), articulo.id]),

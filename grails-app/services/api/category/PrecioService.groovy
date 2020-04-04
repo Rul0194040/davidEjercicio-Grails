@@ -45,8 +45,12 @@ class PrecioService {
 
     Precio create(BetterMap map) throws Exception {
         Precio precio = new Precio()
-        build(map, precio)
-        save(precio)
+        if (map["id"] != null) {
+            this.update(map)
+        }else{
+            build(map, precio)
+            save(precio)
+        }
     }
     Precio get(long id) throws Exception {
         Precio precio = Precio.get(id)
@@ -59,20 +63,11 @@ class PrecioService {
             )
         return precio
     }
-    Precio update(BetterMap map) throws Exception {
-        Precio precio = get(map.optLong("id", -1))//porque menos 1 ?
-
-        if (map.optLong("version", -1) > -1) {//Que es version?
-            if (precio.version > (map.getLong("version"))) {
-                throw new ObjectException(Message.getMensaje([
-                        codigo    : "default.optimistic.locking.failure",
-                        parametros: [Message.getMensaje('precio.label', 'Precio')]
-                ]), precio, true)
-            }
-        }
+    Precio update(BetterMap map, long id) throws Exception {
+        Precio precio = this.get(id)
         build(map, precio)
         save(precio)
-    }// DOS DUDAS !!
+    }
     Precio delete(long id) throws Exception {
         Precio precio = get(id)
         precio.activo = false
