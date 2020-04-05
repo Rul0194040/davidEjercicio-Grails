@@ -58,7 +58,6 @@ class ArticuloController {
     } // lee el articulo del id proporcionado
     def actualizar(long id) {
         try {
-            println(request)
             BetterMap map = new BetterMap(request)
             Articulo articulo = articuloService.update(map, id)
             Map result = [

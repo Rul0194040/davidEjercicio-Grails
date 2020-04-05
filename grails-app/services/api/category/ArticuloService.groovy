@@ -62,22 +62,19 @@ class ArticuloService {
         articulo.nombre = map.optString('nombre', articulo.nombre)
         articulo.activo = map.optBoolean('activo', articulo.activo)
         articulo.clave = map.optString('clave', articulo.clave)
-        if (map["id"] != null) {
-            print("esta entrando")
-            long id = map.id
-            Categoria categoria = categoriaService.update(map.optObject('categoria'), id)
-            Tarifa tarifa = tarifaService.update(map.optObject('tarifa'), id)
+        if (articulo.id != null) {
+            Categoria categoria = categoriaService.update(map.optObject('categoria'), articulo.id)
+            Tarifa tarifa = tarifaService.update(map.optObject('tarifa'), articulo.id)
             articulo.categoria = categoria
             articulo.tarifa = tarifa
+            return  articulo
         }else {
             Categoria categoria = categoriaService.create(map.optObject('categoria'))
             Tarifa tarifa = tarifaService.create(map.optObject('tarifa'))
             articulo.categoria = categoria
             articulo.tarifa = tarifa
+            return articulo
         }
-
-
-        return  articulo
     }
     Articulo create(BetterMap map) throws Exception {
         Articulo articulo = new Articulo()
