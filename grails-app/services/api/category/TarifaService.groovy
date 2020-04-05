@@ -15,7 +15,7 @@ class TarifaService {
     Tarifa build(BetterMap map, Tarifa tarifa) throws Exception {
         tarifa.nombre = map.optString('nombre', tarifa.nombre)
         if (tarifa.id != null) {
-            Precio precio = precioService.update(map.optObject('precio'), tarifa.id)
+            Precio precio = precioService.update(map.optObject('precio'), tarifa.precio.id)
             tarifa.precio = precio
             return  tarifa
         }else {

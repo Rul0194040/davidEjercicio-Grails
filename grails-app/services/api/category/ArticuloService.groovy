@@ -63,8 +63,8 @@ class ArticuloService {
         articulo.activo = map.optBoolean('activo', articulo.activo)
         articulo.clave = map.optString('clave', articulo.clave)
         if (articulo.id != null) {
-            Categoria categoria = categoriaService.update(map.optObject('categoria'), articulo.id)
-            Tarifa tarifa = tarifaService.update(map.optObject('tarifa'), articulo.id)
+            Categoria categoria = categoriaService.update(map.optObject('categoria'), articulo.categoria.id)
+            Tarifa tarifa = tarifaService.update(map.optObject('tarifa'), articulo.tarifa.id)
             articulo.categoria = categoria
             articulo.tarifa = tarifa
             return  articulo
