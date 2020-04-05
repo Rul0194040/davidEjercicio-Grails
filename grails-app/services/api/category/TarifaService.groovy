@@ -14,14 +14,18 @@ class TarifaService {
 
     Tarifa build(BetterMap map, Tarifa tarifa) throws Exception {
         tarifa.nombre = map.optString('nombre', tarifa.nombre)
-        Precio precio = precioService.create(map.optObject('precio'))
-        tarifa.precio = precio
 
+        if (map["id"] != null) {
+            long id = map.id
+            Precio precio = precioService.update(map.optObject('precio'), id)
+            tarifa.precio = precio
+        }else {
+            Precio precio = precioService.create(map.optObject('precio'))
+            tarifa.precio = precio
+        }
 
         return tarifa
     }
-
-
     void validate(Tarifa tarifa) throws ExceptionStatus {
         Tarifa busqueda = Tarifa.find('from Tarifa where activo = false and clave = ?0', [tarifa.clave])
         if (busqueda != null) {
@@ -34,7 +38,7 @@ class TarifaService {
     }
     Tarifa save(Tarifa tarifa) throws Exception {
         try {
-            if (tarifa.validate() && tarifa.save(flush: true))
+            if (/*tarifa.validate() && */tarifa.save(flush: true))
                 return tarifa
             throw new ObjectException(
                     Message.getMensaje(
@@ -46,13 +50,9 @@ class TarifaService {
     }
 
     Tarifa create(BetterMap map) throws Exception {
-        Tarifa tarifa = new Tarifa()
-        if (map["id"] != null) {
-            this.update(map)
-        }else{
+            Tarifa tarifa = new Tarifa()
             build(map, tarifa)
             save(tarifa)
-        }
     }
     Tarifa get(long id) throws Exception {
         Tarifa tarifa = Tarifa.get(id)

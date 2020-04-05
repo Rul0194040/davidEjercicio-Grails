@@ -37,13 +37,9 @@ class CategoriaService {
     }
 
     Categoria create(BetterMap map) throws Exception {
-        Categoria categoria = new Categoria()
-        if (map["id"] != null) {
-          this.update(map)
-        }else{
+            Categoria categoria = new Categoria()
             build(map, categoria)
             save(categoria)
-        }
     }
     Categoria get(long id) throws Exception {
         Categoria categoria = Categoria.get(id)
@@ -56,11 +52,13 @@ class CategoriaService {
             )
         return categoria
     }
+
     Categoria update(BetterMap map, long id) throws Exception {
         Categoria categoria = this.get(id)
         build(map, categoria)
         save(categoria)
     }
+
     Categoria delete(long id) throws Exception {
         Categoria categoria = get(id)
         categoria.activo = false

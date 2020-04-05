@@ -27,7 +27,6 @@ class ArticuloService {
         build(map, articulo)
         save(articulo)
     }
-
     Articulo delete(long id) throws Exception {
         Articulo articulo = get(id)
         articulo.activo = false
@@ -56,28 +55,36 @@ class ArticuloService {
             throw e
         }
     }
+
+
     Articulo build(BetterMap map, Articulo articulo) throws Exception {
         articulo.fechaAlta = map.optDate('fechaAlta', articulo.fechaAlta)
         articulo.nombre = map.optString('nombre', articulo.nombre)
         articulo.activo = map.optBoolean('activo', articulo.activo)
         articulo.clave = map.optString('clave', articulo.clave)
-        Categoria categoria = categoriaService.create(map.optObject('categoria'))
-        Tarifa tarifa = tarifaService.create(map.optObject('tarifa'))
-        articulo.categoria = categoria
-        articulo.tarifa = tarifa
-
+        if (map["id"] != null) {
+            print("esta entrando")
+            long id = map.id
+            Categoria categoria = categoriaService.update(map.optObject('categoria'), id)
+            Tarifa tarifa = tarifaService.update(map.optObject('tarifa'), id)
+            articulo.categoria = categoria
+            articulo.tarifa = tarifa
+        }else {
+            Categoria categoria = categoriaService.create(map.optObject('categoria'))
+            Tarifa tarifa = tarifaService.create(map.optObject('tarifa'))
+            articulo.categoria = categoria
+            articulo.tarifa = tarifa
+        }
 
 
         return  articulo
     }
-
     Articulo create(BetterMap map) throws Exception {
         Articulo articulo = new Articulo()
         build(map, articulo)
         validate(articulo)
         save(articulo)
     }
-
     List<Articulo> list(BetterMap params) throws Exception {
 
         Articulo articulo = Articulo.list(params)

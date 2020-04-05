@@ -44,13 +44,9 @@ class PrecioService {
     }
 
     Precio create(BetterMap map) throws Exception {
-        Precio precio = new Precio()
-        if (map["id"] != null) {
-            this.update(map)
-        }else{
+            Precio precio = new Precio()
             build(map, precio)
             save(precio)
-        }
     }
     Precio get(long id) throws Exception {
         Precio precio = Precio.get(id)
