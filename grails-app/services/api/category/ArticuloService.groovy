@@ -76,6 +76,13 @@ class ArticuloService {
             return articulo
         }
     }
+
+    Articulo addtarifa(BetterMap map, long id) throws Exception {
+        Articulo articulo = this.get(id)
+        tarifaService.add(map, articulo)
+        save(articulo)
+    }
+
     Articulo create(BetterMap map) throws Exception {
         Articulo articulo = new Articulo()
         build(map, articulo)

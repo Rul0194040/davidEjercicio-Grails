@@ -44,6 +44,24 @@ class ArticuloController {
         }
 
     } // crea un articulo
+    def booking() {
+        try {
+            BetterMap map = new BetterMap(request)
+            Articulo articulo = articuloService.create(map)
+            respond(articulo.ObtenerArticulo())
+        }catch (ObjectException e) {
+            respond(status: HttpStatus.BAD_REQUEST, e.responseObject)
+        }
+    }
+    def addTarifa(long id) {
+        try {
+            BetterMap map = new BetterMap(request)
+            Articulo articulo = articuloService.addtarifa(map, id)
+            respond(articulo.ObtenerArticulo())
+        }catch (ObjectException e) {
+            respond(status: HttpStatus.BAD_REQUEST, e.responseObject)
+        }
+    }
     def leer(long id) {
         try {
             BetterMap map = new BetterMap(params)
@@ -88,13 +106,5 @@ class ArticuloController {
         }
     } // borra el articulo del id proporcionado
 
-    def booking() {
-        try {
-            BetterMap map = new BetterMap(request)
-            Articulo articulo = articuloService.create(map)
-            respond(articulo.ObtenerArticulo())
-        }catch (ObjectException e) {
-            respond(status: HttpStatus.BAD_REQUEST, e.responseObject)
-        }
-    }
+
 }

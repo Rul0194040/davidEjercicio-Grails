@@ -37,6 +37,7 @@ class Articulo {
         )
     }
 
+    static hasMany = [tarifas: Tarifa]
 
     Map ObtenerArticulo() {[
         id         : id,

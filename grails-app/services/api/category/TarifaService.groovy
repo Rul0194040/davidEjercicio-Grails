@@ -52,6 +52,10 @@ class TarifaService {
             build(map, tarifa)
             save(tarifa)
     }
+
+    Tarifa add(BetterMap map, Articulo articulo) throws Exception {
+        articulo.tarifa = this.create(map)
+    }
     Tarifa get(long id) throws Exception {
         Tarifa tarifa = Tarifa.get(id)
         if (tarifa == null)
