@@ -45,7 +45,7 @@ class Articulo {
         nombre     : nombre,
         activo     : activo,
         fechaAlta  : fechaAlta,
-        tarifas    : tarifas.ObtenerTarifa(),
+        tarifas    : tarifas*.ObtenerTarifa(),
         categoria  : categoria.Obtener(),
     ]}
 

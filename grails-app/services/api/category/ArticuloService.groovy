@@ -83,7 +83,7 @@ class ArticuloService {
             if (tarifas?.size() > 0) {
                 for (int i = 0; i < tarifas.size(); i++) {
                     tarifaService.create(tarifas.optObject(i))
-                    articulo.addToTarifas(tarifas.optObject(i))
+                    articulo.addToTarifas(tarifas.optObject(i).optLong('id'))
                 }
             }
 
