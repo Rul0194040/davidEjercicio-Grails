@@ -7,7 +7,9 @@ class Articulo {
     Date fechaAlta
     Boolean activo = true
     String clave
-    Tarifa tarifas
+
+    static hasMany = [tarifas: Tarifa]
+
 
     static constraints = {
 
@@ -37,7 +39,6 @@ class Articulo {
         )
     }
 
-    static hasMany = [tarifas: Tarifa]
 
     Map ObtenerArticulo() {[
         id         : id,

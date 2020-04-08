@@ -67,7 +67,7 @@ class ArticuloService {
             BetterMapList tarifas = map.optArray("tarifas")
             if (tarifas?.size() > 0) {
                 for (int i = 0; i < tarifas.size(); i++) {
-                    articulo.tarifas = tarifaService.update(
+                    tarifaService.update(
                             tarifas.optObject(i),
                             tarifas.optObject(i).optLong('id')
                     )
@@ -82,7 +82,7 @@ class ArticuloService {
             BetterMapList tarifas = map.optArray("tarifas")
             if (tarifas?.size() > 0) {
                 for (int i = 0; i < tarifas.size(); i++) {
-                    articulo.tarifas = tarifaService.create(tarifas.optObject(i))
+                    tarifaService.create(tarifas.optObject(i))
                     articulo.addToTarifas(tarifas.optObject(i))
                 }
             }
