@@ -7,7 +7,7 @@ class Articulo {
     Date fechaAlta
     Boolean activo = true
     String clave
-    Tarifa tarifa
+    Tarifa tarifas
 
     static constraints = {
 
@@ -31,7 +31,7 @@ class Articulo {
             blank: false,
             nullable: false
         )
-        tarifa(
+        tarifas(
             blank: false,
             nullable: false
         )
@@ -44,7 +44,7 @@ class Articulo {
         nombre     : nombre,
         activo     : activo,
         fechaAlta  : fechaAlta,
-        tarifa     : tarifa.ObtenerTarifa(),
+        tarifas    : tarifas.ObtenerTarifa(),
         categoria  : categoria.Obtener(),
     ]}
 

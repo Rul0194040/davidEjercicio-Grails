@@ -12,6 +12,7 @@ class TarifaService {
 
     PrecioService precioService
 
+
     Tarifa build(BetterMap map, Tarifa tarifa) throws Exception {
         tarifa.nombre = map.optString('nombre', tarifa.nombre)
         if (tarifa.id != null) {
@@ -53,9 +54,6 @@ class TarifaService {
             save(tarifa)
     }
 
-    Tarifa add(BetterMap map, Articulo articulo) throws Exception {
-        articulo.tarifa = this.create(map)
-    }
     Tarifa get(long id) throws Exception {
         Tarifa tarifa = Tarifa.get(id)
         if (tarifa == null)

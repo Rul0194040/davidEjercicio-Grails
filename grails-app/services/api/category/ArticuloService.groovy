@@ -55,8 +55,6 @@ class ArticuloService {
             throw e
         }
     }
-
-
     Articulo build(BetterMap map, Articulo articulo) throws Exception {
         articulo.fechaAlta = map.optDate('fechaAlta', articulo.fechaAlta)
         articulo.nombre = map.optString('nombre', articulo.nombre)
@@ -64,44 +62,53 @@ class ArticuloService {
         articulo.clave = map.optString('clave', articulo.clave)
         if (articulo.id != null) {
             Categoria categoria = categoriaService.update(map.optObject('categoria'), articulo.categoria.id)
-            Tarifa tarifa = tarifaService.update(map.optObject('tarifa'), articulo.tarifa.id)
             articulo.categoria = categoria
-            articulo.tarifa = tarifa
+
+            BetterMapList tarifas = map.optArray("tarifas")
+            if (tarifas?.size() > 0) {
+                for (int i = 0; i < tarifas.size(); i++) {
+                    articulo.tarifas = tarifaService.update(
+                            tarifas.optObject(i),
+                            tarifas.optObject(i).optLong('id')
+                    )
+                }
+            }
+
             return  articulo
         }else {
             Categoria categoria = categoriaService.create(map.optObject('categoria'))
-            Tarifa tarifa = tarifaService.create(map.optObject('tarifa'))
             articulo.categoria = categoria
-            articulo.tarifa = tarifa
+
+            BetterMapList tarifas = map.optArray("tarifas")
+            if (tarifas?.size() > 0) {
+                for (int i = 0; i < tarifas.size(); i++) {
+                    articulo.tarifas = tarifaService.create(tarifas.optObject(i))
+                    articulo.addToTarifas(tarifas.optObject(i))
+                }
+            }
+
             return articulo
         }
     }
-
-    Articulo addtarifa(BetterMap map, long id) throws Exception {
-        Articulo articulo = this.get(id)
-        tarifaService.add(map, articulo)
-        save(articulo)
-    }
-
     Articulo create(BetterMap map) throws Exception {
         Articulo articulo = new Articulo()
         build(map, articulo)
         validate(articulo)
         save(articulo)
     }
-    List<Articulo> list(BetterMap params) throws Exception {
-
-        Articulo articulo = Articulo.list(params)
-        return  articulo
-
-
-    }
-    long count(BetterMap params) throws Exception {
-
-        long articulo = Articulo.count(params)
-        return  articulo
-
-    }
+//    List<Articulo> list(BetterMap params) throws Exception {
+//
+//        Articulo articulo = Articulo.list(params)
+//        return  articulo
+//
+//
+//    }
+//    long count(BetterMap params) throws Exception {
+//
+//        long articulo = Articulo.count(params)
+//        return  articulo
+//
+//    }
 
 
 
